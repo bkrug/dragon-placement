@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
+using Repository;
 
 namespace DragonApi.Controllers
 {
@@ -8,6 +9,13 @@ namespace DragonApi.Controllers
     [Route("dragon")]
     public class DragonController : Controller
     {
+        private readonly IDragonGetter _dragonGetter;
+
+        public DragonController(IDragonGetter dragonGetter)
+        {
+            _dragonGetter = dragonGetter;
+        }
+
         //// GET: DragonController
         //public ActionResult Index()
         //{
@@ -17,31 +25,7 @@ namespace DragonApi.Controllers
         [HttpGet(Name = "GetDragon")]
         public int Get(int id)
         {
-            const string DATA_SOURCE = @"C:\Users\Benjamin Krug\source\repos\sqlLiteExp\dragon.db";
-            using (var connection = new SqliteConnection($"Data Source={DATA_SOURCE}"))
-            {
-                connection.Open();
-
-                var command = connection.CreateCommand();
-                command.CommandText =
-                @"
-        SELECT *
-        FROM Dragon
-        WHERE id = $id
-    ";
-                command.Parameters.AddWithValue("$id", id);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var name = reader.GetString(0);
-
-                        Console.WriteLine($"Hello, {name}!");
-                    }
-                }
-            }
-            return 5;
+            return _dragonGetter.GetDragon(id)?.Id ?? 0;
         }
 
         //// GET: DragonController/Create
