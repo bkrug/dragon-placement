@@ -6,9 +6,9 @@ namespace BusinessLogic
 {
     public class DragonLogic : IDragonLogic
     {
-        private readonly IDragonRepository _dragonRepository;
+        private readonly IGenericRepository<Dragon> _dragonRepository;
 
-        public DragonLogic(IDragonRepository dragonRepository)
+        public DragonLogic(IGenericRepository<Dragon> dragonRepository)
         {
             _dragonRepository = dragonRepository;
         }
@@ -23,7 +23,8 @@ namespace BusinessLogic
                 HasFire = dragonContract.HasFire,
                 HasFlight = dragonContract.HasFlight,
             };
-            _dragonRepository.Create(dragonRecord);
+            _dragonRepository.Insert(dragonRecord);
+            _dragonRepository.SaveChanges();
         }
     }
 }

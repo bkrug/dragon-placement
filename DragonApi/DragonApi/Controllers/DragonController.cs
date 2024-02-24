@@ -20,7 +20,7 @@ namespace DragonApi.Controllers
         }
 
         [HttpGet("all-dragons")]
-        public IList<Dragon> Index(int skip, int take)
+        public IList<Dragon> Index(int skip = 0, int take = 10)
         {
             return _dragonGetter.GetDragons(skip, take);
         }

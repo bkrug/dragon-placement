@@ -1,6 +1,7 @@
 using BusinessLogic;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using Repository.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<DragonContext>(options =>
     ServiceLifetime.Scoped);
 
 builder.Services.AddScoped<IDragonRepository, DragonRepository>();
+builder.Services.AddScoped<IGenericRepository<Dragon>, GenericRepository<Dragon>>();
 builder.Services.AddScoped<IDragonLogic, DragonLogic>();
 
 var app = builder.Build();

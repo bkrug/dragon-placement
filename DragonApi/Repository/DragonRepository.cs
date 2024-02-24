@@ -2,6 +2,7 @@
 
 namespace Repository
 {
+    [Obsolete]
     public class DragonRepository : IDragonRepository
     {
         private readonly DragonContext _dragonContext;
