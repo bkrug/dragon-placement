@@ -1,3 +1,4 @@
+using BusinessLogic;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 
@@ -17,7 +18,8 @@ builder.Services.AddDbContext<DragonContext>(options =>
     options.UseSqlite(builder.Configuration["ConnectionStrings:SQLiteDefault"]),
     ServiceLifetime.Scoped);
 
-builder.Services.AddScoped<IDragonGetter, DragonGetter>();
+builder.Services.AddScoped<IDragonRepository, DragonRepository>();
+builder.Services.AddScoped<IDragonLogic, DragonLogic>();
 
 var app = builder.Build();
 

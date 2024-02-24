@@ -2,12 +2,18 @@
 
 namespace Repository
 {
-    public class DragonGetter : IDragonGetter
+    public class DragonRepository : IDragonRepository
     {
         private readonly DragonContext _dragonContext;
 
-        public DragonGetter(DragonContext dragonContext) {
+        public DragonRepository(DragonContext dragonContext) {
             _dragonContext = dragonContext;
+        }
+
+        public void Create(Dragon dragon)
+        {
+            _dragonContext.Add(dragon);
+            _dragonContext.SaveChanges();
         }
 
         public Dragon GetDragon(int id)

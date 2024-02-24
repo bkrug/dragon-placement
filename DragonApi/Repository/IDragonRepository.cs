@@ -2,8 +2,9 @@
 
 namespace Repository
 {
-    public interface IDragonGetter
+    public interface IDragonRepository
     {
+        void Create(Dragon dragon);
         Dragon GetDragon(int id);
         IList<Dragon> GetDragons(int skip, int take);
     }

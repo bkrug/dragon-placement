@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLogic;
+using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Repository.Model;
 
@@ -8,11 +10,13 @@ namespace DragonApi.Controllers
     [Route("dragon")]
     public class DragonController : Controller
     {
-        private readonly IDragonGetter _dragonGetter;
+        private readonly IDragonRepository _dragonGetter;
+        private readonly IDragonLogic _dragonLogic;
 
-        public DragonController(IDragonGetter dragonGetter)
+        public DragonController(IDragonRepository dragonGetter, IDragonLogic dragonLogic)
         {
             _dragonGetter = dragonGetter;
+            _dragonLogic = dragonLogic;
         }
 
         [HttpGet("all-dragons")]
@@ -28,11 +32,12 @@ namespace DragonApi.Controllers
             return _dragonGetter.GetDragon(id);
         }
 
-        //// GET: DragonController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [HttpPost()]
+        public bool Create(DragonCreationContract dragon)
+        {
+            _dragonLogic.CreateDragon(dragon);
+            return true;
+        }
 
         //// POST: DragonController/Create
         //[HttpPost]
