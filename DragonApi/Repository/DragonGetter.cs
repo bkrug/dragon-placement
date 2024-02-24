@@ -12,9 +12,16 @@ namespace Repository
 
         public Dragon GetDragon(int id)
         {
-            var someDragon = _dragonContext.Dragons.FirstOrDefault(d => d.Id == id);
+            return _dragonContext.Dragons.FirstOrDefault(d => d.Id == id);
+        }
 
-            return someDragon;
+        public IList<Dragon> GetDragons(int skip, int take)
+        {
+            return _dragonContext.Dragons
+                .OrderBy(d => d.Name)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.AspNetCore.Mvc;
 using Repository;
+using Repository.Model;
 
 namespace DragonApi.Controllers
 {
@@ -16,16 +15,17 @@ namespace DragonApi.Controllers
             _dragonGetter = dragonGetter;
         }
 
-        //// GET: DragonController
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        [HttpGet(Name = "GetDragon")]
-        public int Get(int id)
+        [HttpGet("all-dragons")]
+        public IList<Dragon> Index(int skip, int take)
         {
-            return _dragonGetter.GetDragon(id)?.Id ?? 0;
+            return _dragonGetter.GetDragons(skip, take);
+        }
+
+        [HttpGet()]
+        public Dragon Get(int id)
+        {
+            //TODO: Can we return 404 when the result is null?
+            return _dragonGetter.GetDragon(id);
         }
 
         //// GET: DragonController/Create
