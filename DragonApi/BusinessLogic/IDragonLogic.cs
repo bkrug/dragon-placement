@@ -4,6 +4,7 @@ namespace BusinessLogic
 {
     public interface IDragonLogic
     {
-        void CreateDragon(DragonCreationContract dragonContract);
+        void Insert(DragonCreationContract dragonContract);
+        void Update(int id, DragonCreationContract dragonContract);
     }
 }

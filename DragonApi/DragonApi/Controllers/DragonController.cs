@@ -35,7 +35,14 @@ namespace DragonApi.Controllers
         [HttpPost()]
         public bool Create(DragonCreationContract dragon)
         {
-            _dragonLogic.CreateDragon(dragon);
+            _dragonLogic.Insert(dragon);
+            return true;
+        }
+
+        [HttpPut()]
+        public bool Update(int id, DragonCreationContract dragon)
+        {
+            _dragonLogic.Update(id, dragon);
             return true;
         }
 

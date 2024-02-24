@@ -13,7 +13,7 @@ namespace BusinessLogic
             _dragonRepository = dragonRepository;
         }
 
-        public void CreateDragon(DragonCreationContract dragonContract)
+        public void Insert(DragonCreationContract dragonContract)
         {
             //TODO: This is an actually good use for automapper. Install it.
             var dragonRecord = new Dragon
@@ -24,6 +24,21 @@ namespace BusinessLogic
                 HasFlight = dragonContract.HasFlight,
             };
             _dragonRepository.Insert(dragonRecord);
+            _dragonRepository.SaveChanges();
+        }
+
+        public void Update(int id, DragonCreationContract dragonContract)
+        {
+            //TODO: This is an actually good use for automapper. Install it.
+            var dragonRecord = new Dragon
+            {
+                Id = id,
+                Name = dragonContract.Name,
+                Title = dragonContract.Title,
+                HasFire = dragonContract.HasFire,
+                HasFlight = dragonContract.HasFlight,
+            };
+            _dragonRepository.Update(dragonRecord);
             _dragonRepository.SaveChanges();
         }
     }
