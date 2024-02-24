@@ -39,8 +39,8 @@ namespace DragonApi.Controllers
             return true;
         }
 
-        [HttpPut()]
-        public bool Update(int id, DragonCreationContract dragon)
+        [HttpPut("{id}")]
+        public bool Update([FromRoute]int id, DragonCreationContract dragon)
         {
             _dragonLogic.Update(id, dragon);
             return true;
