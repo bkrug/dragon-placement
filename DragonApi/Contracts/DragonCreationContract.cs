@@ -4,7 +4,7 @@
     {
         public string Name { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
-        public int HasFire { get; set; }
-        public int HasFlight { get; set; }
+        public bool HasFire { get; set; }
+        public bool HasFlight { get; set; }
     }
 }

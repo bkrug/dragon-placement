@@ -39,21 +39,6 @@ namespace DragonApi.Controllers
             return true;
         }
 
-        //// POST: DragonController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
         //// GET: DragonController/Edit/5
         //public ActionResult Edit(int id)
         //{
