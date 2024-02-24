@@ -1,7 +1,6 @@
 ﻿using BusinessLogic;
 using Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Repository;
 using Repository.Model;
 
 namespace DragonApi.Controllers
@@ -10,26 +9,24 @@ namespace DragonApi.Controllers
     [Route("dragon")]
     public class DragonController : Controller
     {
-        private readonly IDragonRepository _dragonGetter;
         private readonly IDragonLogic _dragonLogic;
 
-        public DragonController(IDragonRepository dragonGetter, IDragonLogic dragonLogic)
+        public DragonController(IDragonLogic dragonLogic)
         {
-            _dragonGetter = dragonGetter;
             _dragonLogic = dragonLogic;
         }
 
         [HttpGet("all-dragons")]
         public IList<Dragon> Index(int skip = 0, int take = 10)
         {
-            return _dragonGetter.GetDragons(skip, take);
+            return _dragonLogic.Read(skip, take);
         }
 
         [HttpGet()]
         public Dragon Get(int id)
         {
             //TODO: Can we return 404 when the result is null?
-            return _dragonGetter.GetDragon(id);
+            return _dragonLogic.Read(id);
         }
 
         [HttpPost()]

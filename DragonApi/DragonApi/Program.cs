@@ -19,7 +19,6 @@ builder.Services.AddDbContext<DragonContext>(options =>
     options.UseSqlite(builder.Configuration["ConnectionStrings:SQLiteDefault"]),
     ServiceLifetime.Scoped);
 
-builder.Services.AddScoped<IDragonRepository, DragonRepository>();
 builder.Services.AddScoped<IGenericRepository<Dragon>, GenericRepository<Dragon>>();
 builder.Services.AddScoped<IDragonLogic, DragonLogic>();
 
