@@ -4,6 +4,7 @@ import './dragon-list.css';
 
 //TODO: Move this to some "model" folder. Add more properties
 class dragon {
+    id: number = 0;
     name: string = "";
 }
 
@@ -16,7 +17,7 @@ function DragonList() {
             .then(response => setDragons(response.data));
     }, []);
 
-    let dragonElements = dragons.map(d => (<li>{d.name}</li>));
+    let dragonElements = dragons.map(d => (<li key={d.id}>{d.name}</li>));
 
     return (
         <div className='dragon-list'>
