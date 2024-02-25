@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Line from './components/line/line';
+import DragonList from './components/dragon-list/dragon-list';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
-      Some text
+      <DragonList />
       <Line/>
     </div>
   );

@@ -3,7 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Model;
 
+var DragonOrigins = "_dragonOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: DragonOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                      });
+});
 
 // Add services to the container.
 
@@ -32,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(DragonOrigins);
 
 app.UseAuthorization();
 
