@@ -6,6 +6,9 @@ import './dragon-list.css';
 class dragon {
     id: number = 0;
     name: string = "";
+    title: string = "";
+    hasFire: boolean = false;
+    hasFlight: boolean = false;
 }
 
 function DragonList() {
@@ -17,17 +20,21 @@ function DragonList() {
             .then(response => setDragons(response.data));
     }, []);
 
-    let dragonElements = dragons.map(d => (<li key={d.id}>{d.name}</li>));
+    let dragonElements = dragons.map(d => (
+        <div key={d.id} className="dragon-card">
+            <span>{d.name}</span>
+            <span>{d.title}</span>
+            <span>{d.hasFire ? "breathes fire" : "does not breath fire"}</span>
+            <span>{d.hasFlight ? "flies" : "does not fly"}</span>
+        </div>
+    ));
 
     return (
         <div className='dragon-list'>
             Dragons available for hire!
-            {
-                dragons.length
-            }
-            <ul>
+            <div>
                 { dragonElements }
-            </ul>
+            </div>
         </div>
     );
 };

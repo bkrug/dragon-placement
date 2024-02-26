@@ -1,3 +1,11 @@
 .dragon-list {
     border: blue 1px solid;
 }
+
+.dragon-card {
+    margin: 1em;
+}
+
+.dragon-card span {
+    display: block;
+}
