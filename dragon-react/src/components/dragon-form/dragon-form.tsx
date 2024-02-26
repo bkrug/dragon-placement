@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, FormEvent} from "react";
 import dragon from '../../models/dragon';
+import axios from 'axios';
 
 interface DragonFormProps {
     sourceData: dragon;
@@ -20,7 +21,7 @@ export default function DragonForm({ sourceData }: DragonFormProps) {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement> ) => {
         event.preventDefault();
-        console.log(formData);
+        axios.put(`http://localhost:5044/dragon/${sourceData.id}`, formData);
     };
 
     return (
