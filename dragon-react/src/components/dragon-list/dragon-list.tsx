@@ -1,24 +1,12 @@
 import React, { useState, useEffect, MouseEvent } from 'react';
-import { DataGrid, GridRowsProp, GridColDef, GridApi } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import axios from 'axios';
+import dragon from '../../models/dragon';
+import rowsWithRowCount from '../../models/rowsWithRowCount';
 import './dragon-list.css';
 
-//TODO: Move this to some "model" folder. Add more properties
-class dragon {
-    id: number = 0;
-    name: string = "";
-    title: string = "";
-    hasFire: boolean = false;
-    hasFlight: boolean = false;
-}
-
-class dragonRows {
-    rowCount: number = 0;
-    items: dragon[] = [];
-}
-
 function DragonList() {
-    let [dragons, setDragons] = useState(new dragonRows());
+    let [dragons, setDragons] = useState(new rowsWithRowCount<dragon>());
 
     useEffect(() => {
         axios.get('http://localhost:5044/dragon/all-dragons?skip=0&take=10')
