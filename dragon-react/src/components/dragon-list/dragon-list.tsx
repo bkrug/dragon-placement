@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import React, { useState, useEffect, MouseEvent } from 'react';
+import { DataGrid, GridRowsProp, GridColDef, GridApi } from '@mui/x-data-grid';
 import axios from 'axios';
 import './dragon-list.css';
 
@@ -13,7 +13,7 @@ class dragon {
 }
 
 class dragonRows {
-    row_count: number = 0;
+    rowCount: number = 0;
     items: dragon[] = [];
 }
 
@@ -32,6 +32,19 @@ function DragonList() {
         { field: 'title', headerName: 'Title', width: 150 },
         { field: 'hasFire', headerName: 'Breathes Fire', width: 150 },
         { field: 'hasFlight', headerName: 'Can Fly', width: 150 },
+        {
+            field: "action",
+            headerName: "Action",
+            sortable: false,
+            filterable: false,
+            renderCell: (params: any) => {
+                const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+                    e.stopPropagation(); // don't select this row after clicking
+                    return alert(params.id);
+                };
+                return <button onClick={onClick}>Click</button>;
+            }
+          }
     ];
 
     return (
