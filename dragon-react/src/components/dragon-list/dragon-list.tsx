@@ -12,23 +12,27 @@ class dragon {
     hasFlight: boolean = false;
 }
 
+class dragonRows {
+    row_count: number = 0;
+    items: dragon[] = [];
+}
+
 function DragonList() {
-    let emptyList: dragon[] = [];
-    let [dragons, setDragons] = useState(emptyList);
+    let [dragons, setDragons] = useState(new dragonRows());
 
     useEffect(() => {
         axios.get('http://localhost:5044/dragon/all-dragons?skip=0&take=10')
             .then(response => setDragons(response.data));
     }, []);
 
-    const rows: GridRowsProp = dragons;
+    const rows: GridRowsProp = dragons.items;
       
-      const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 150, editable: true },
-        { field: 'title', headerName: 'Title', width: 150, editable: true },
-        { field: 'hasFire', headerName: 'Breathes Fire', width: 150, editable: true },
-        { field: 'hasFlight', headerName: 'Can Fly', width: 150, editable: true },
-      ];
+    const columns: GridColDef[] = [
+        { field: 'name', headerName: 'Name', width: 150 },
+        { field: 'title', headerName: 'Title', width: 150 },
+        { field: 'hasFire', headerName: 'Breathes Fire', width: 150 },
+        { field: 'hasFlight', headerName: 'Can Fly', width: 150 },
+    ];
 
     return (
         <div className='dragon-list'>

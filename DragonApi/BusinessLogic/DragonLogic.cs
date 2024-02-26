@@ -42,12 +42,16 @@ namespace BusinessLogic
             _dragonRepository.SaveChanges();
         }
 
-        public IList<Dragon> Read(int skip, int take)
+        public RowsWithRowCount<Dragon> Read(int skip, int take)
         {
-            return _dragonRepository.Get(orderBy: q => q.OrderBy(dr => dr.Name))
-                .Skip(skip)
-                .Take(take)
-                .ToList();
+            return new RowsWithRowCount<Dragon>
+            {
+                RowCount = _dragonRepository.Get(orderBy: q => q.OrderBy(dr => dr.Name)).Count(),
+                Items = _dragonRepository.Get(orderBy: q => q.OrderBy(dr => dr.Name))
+                    .Skip(skip)
+                    .Take(take)
+                    .ToList()
+            };
         }
 
         public Dragon Read(int id)

@@ -17,7 +17,7 @@ namespace DragonApi.Controllers
         }
 
         [HttpGet("all-dragons")]
-        public IList<Dragon> Index(int skip = 0, int take = 10)
+        public RowsWithRowCount<Dragon> Index(int skip = 0, int take = 10)
         {
             return _dragonLogic.Read(skip, take);
         }
