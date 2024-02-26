@@ -3,10 +3,12 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import axios from 'axios';
 import dragon from '../../models/dragon';
 import rowsWithRowCount from '../../models/rowsWithRowCount';
+import DragonForm from '../dragon-form/dragon-form';
 import './dragon-list.css';
 
 function DragonList() {
     let [dragons, setDragons] = useState(new rowsWithRowCount<dragon>());
+    let [dragonToEdit, setDragonToEdit] = useState(new dragon());
 
     useEffect(() => {
         axios.get('http://localhost:5044/dragon/all-dragons?skip=0&take=10')
@@ -27,8 +29,10 @@ function DragonList() {
             filterable: false,
             renderCell: (params: any) => {
                 const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-                    e.stopPropagation(); // don't select this row after clicking
-                    return alert(params.id);
+                    e.stopPropagation();
+                    const selectedDragon = dragons.items.find((d: dragon) => d.id == params.id) || new dragon();
+                    setDragonToEdit(selectedDragon);
+                    return params.id;
                 };
                 return <button onClick={onClick}>Click</button>;
             }
@@ -37,8 +41,8 @@ function DragonList() {
 
     return (
         <div className='dragon-list'>
-            Dragons available for hire!
             <DataGrid rows={rows} columns={columns} />
+            { dragonToEdit.id > 0 ? <DragonForm sourceData={dragonToEdit} /> : <div/> }
         </div>
     );
 };
