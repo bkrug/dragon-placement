@@ -1,10 +1,12 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Line from './components/line/line';
 import DragonList from './components/dragon-list/dragon-list';
+import DragonApi from './services/dragonApi';
 
 function App() {
+  const dragonApi = new DragonApi();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,7 +23,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <DragonList />
+      <DragonList dragonApi={dragonApi} />
       <Line/>
     </div>
   );

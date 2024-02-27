@@ -1,18 +1,22 @@
 import React, { useState, useEffect, MouseEvent } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import axios from 'axios';
 import dragon from '../../models/dragon';
 import rowsWithRowCount from '../../models/rowsWithRowCount';
 import DragonForm from '../dragon-form/dragon-form';
+import DragonApi from '../../services/dragonApi';
 import './dragon-list.css';
 
-function DragonList() {
+interface DragonListProps {
+    dragonApi: DragonApi;
+}
+
+function DragonList({ dragonApi }: DragonListProps) {
     let [dragons, setDragons] = useState(new rowsWithRowCount<dragon>());
     let [dragonToEdit, setDragonToEdit] = useState(new dragon());
 
     useEffect(() => {
-        axios.get('http://localhost:5044/dragon/all-dragons?skip=0&take=10')
-            .then(response => setDragons(response.data));
+        dragonApi.getDragons()
+            .then(response => setDragons(response));
     }, []);
 
     const rows: GridRowsProp = dragons.items;
@@ -42,7 +46,7 @@ function DragonList() {
     return (
         <div className='dragon-list'>
             <DataGrid rows={rows} columns={columns} />
-            { dragonToEdit.id > 0 ? <DragonForm formData={dragonToEdit} setFormData={setDragonToEdit} /> : <div/> }
+            { dragonToEdit.id > 0 ? <DragonForm formData={dragonToEdit} setFormData={setDragonToEdit} dragonApi={dragonApi} /> : <div/> }
         </div>
     );
 };
