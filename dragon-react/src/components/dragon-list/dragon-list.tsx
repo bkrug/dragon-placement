@@ -42,7 +42,7 @@ function DragonList() {
     return (
         <div className='dragon-list'>
             <DataGrid rows={rows} columns={columns} />
-            { dragonToEdit.id > 0 ? <DragonForm sourceData={dragonToEdit} /> : <div/> }
+            { dragonToEdit.id > 0 ? <DragonForm formData={dragonToEdit} setFormData={setDragonToEdit} /> : <div/> }
         </div>
     );
 };

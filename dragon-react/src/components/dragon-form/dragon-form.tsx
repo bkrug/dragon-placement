@@ -1,13 +1,14 @@
-import { useState, ChangeEvent, FormEvent} from "react";
+import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction} from "react";
 import dragon from '../../models/dragon';
 import axios from 'axios';
 
 interface DragonFormProps {
-    sourceData: dragon;
+    formData: dragon;
+    setFormData: Dispatch<SetStateAction<dragon>>;
 }
 
-export default function DragonForm({ sourceData }: DragonFormProps) {
-    const [formData, setFormData] = useState(sourceData);
+export default function DragonForm({ formData, setFormData }: DragonFormProps) {
+    //const [formData, setFormData] = useState(formData);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -21,11 +22,12 @@ export default function DragonForm({ sourceData }: DragonFormProps) {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement> ) => {
         event.preventDefault();
-        axios.put(`http://localhost:5044/dragon/${sourceData.id}`, formData);
+        axios.put(`http://localhost:5044/dragon/${formData.id}`, formData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
+            <b>{formData.name}</b>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/>
 
