@@ -1,7 +1,6 @@
-import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction} from "react";
+import { ChangeEvent, FormEvent, Dispatch, SetStateAction} from "react";
 import dragon from '../../models/dragon';
 import DragonApi from '../../services/dragonApi';
-import axios from 'axios';
 
 interface DragonFormProps {
     formData: dragon;
