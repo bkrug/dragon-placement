@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Model;
 
@@ -7,6 +8,7 @@ namespace DragonApi.Controllers
 {
     [ApiController]
     [Route("dragon")]
+    [Authorize]
     public class DragonController : Controller
     {
         private readonly IDragonLogic _dragonLogic;

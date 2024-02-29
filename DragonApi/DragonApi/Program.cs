@@ -1,7 +1,11 @@
 using BusinessLogic;
+using DragonApi;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Model;
+using System.Web.Http;
 
 var DragonOrigins = "_dragonOrigins";
 
@@ -17,6 +21,12 @@ builder.Services.AddCors(options =>
                             .AllowAnyMethod();
                       });
 });
+
+//When you stop using InMemoryDb, uninstall this package Microsoft.EntityFrameworkCore.InMemory
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("AppDb"));
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
 
@@ -49,6 +59,41 @@ app.UseHttpsRedirection();
 app.UseCors(DragonOrigins);
 
 app.UseAuthorization();
+app.MapIdentityApi<IdentityUser>();
+app.MapSwagger().RequireAuthorization();
+
+var summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
+app.MapGet("/weatherforecast2", (HttpContext httpContext) =>
+{
+    var forecast = Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        })
+        .ToArray();
+    return forecast;
+})
+.WithName("GetWeatherForecast2")
+.WithOpenApi()
+.RequireAuthorization();
+
+app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager,
+    [FromBody] object empty) =>
+{
+    if (empty != null)
+    {
+        await signInManager.SignOutAsync();
+        return Results.Ok();
+    }
+    return Results.Unauthorized();
+})
+.WithOpenApi()
+.RequireAuthorization();
 
 app.MapControllers();
 
