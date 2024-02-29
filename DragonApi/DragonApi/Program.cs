@@ -1,7 +1,9 @@
 using BusinessLogic;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Model;
+using System.Security.Claims;
 
 var DragonOrigins = "_dragonOrigins";
 
@@ -17,6 +19,17 @@ builder.Services.AddCors(options =>
                             .AllowAnyMethod();
                       });
 });
+
+builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddJwtBearer()
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Forbidden/";
+    });
 
 // Add services to the container.
 
@@ -48,7 +61,11 @@ app.UseHttpsRedirection();
 
 app.UseCors(DragonOrigins);
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapGet("/", () => "Hello, World!");
+app.MapGet("/secret", (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}. My secret")
+    .RequireAuthorization();
 
 app.MapControllers();
 

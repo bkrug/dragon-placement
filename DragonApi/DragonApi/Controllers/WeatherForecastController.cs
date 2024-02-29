@@ -63,21 +63,21 @@ namespace DragonApi.Controllers
     public class Customer1 : ICustomer
     {
         public DateTime DateJoined { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 
 
     public class Customer2 : ICustomer
     {
         public DateTime DateJoined { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public decimal GetLoyaltyDiscount() => 2;
     }
 
     public class Customer3 : ICustomer
     {
         public DateTime DateJoined { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         decimal ICustomer.GetLoyaltyDiscount() => 3;
     }
 }
