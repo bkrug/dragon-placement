@@ -8,6 +8,7 @@ namespace DragonApi.Controllers
 {
     [ApiController]
     [Route("dragon")]
+    //[Authorize(Roles = "DragonEditor")]
     [Authorize]
     public class DragonController : Controller
     {
