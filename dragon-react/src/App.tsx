@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Line from './components/line/line';
+import Login from './components/login/login';
 import DragonList from './components/dragon-list/dragon-list';
 import DragonApi from './services/dragonApi';
 
@@ -20,6 +21,7 @@ function App() {
         </a>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
+      <Login dragonApi={dragonApi} />
       <DragonList dragonApi={dragonApi} />
       <Line/>
     </div>
