@@ -1,7 +1,5 @@
 using BusinessLogic;
-using DragonApi;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Model;
@@ -18,6 +16,7 @@ builder.Services.AddCors(options =>
                       {
                           policy.WithOrigins("http://localhost:3000")
                             .AllowAnyHeader()
+                            .AllowCredentials()
                             .AllowAnyMethod();
                       });
 });

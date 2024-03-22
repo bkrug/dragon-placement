@@ -21,7 +21,7 @@ export default function Login({ dragonApi }: LoginFormProps) {
         setIsLoggedIn(success);
     };
 
-    const handleLogout = async (event: MouseEvent<HTMLAnchorElement>) => {
+    const handleLogout = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         await dragonApi.logout();
         setIsLoggedIn(false);
@@ -29,7 +29,7 @@ export default function Login({ dragonApi }: LoginFormProps) {
 
     if (isLoggedIn) {
         return (
-            <a href="#" onClick={handleLogout}>Log Out</a>
+            <button onClick={handleLogout}>Log Out</button>
         );
     }
     else {
