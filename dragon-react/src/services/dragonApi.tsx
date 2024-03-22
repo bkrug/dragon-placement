@@ -25,7 +25,7 @@ export default class DragonApi {
     }
 
     async login(formData: loginData): Promise<any> {
-        const response = await axios.post(`http://localhost:5044/login?useCookies=true&useSessionCookies=false`, formData)
+        const response = await axios.post('http://localhost:5044/login?useCookies=true', formData)
             .catch((error) => {
                 if (error.message != null) {
                     console.log('The following error message was recieved: ' + error.message);
