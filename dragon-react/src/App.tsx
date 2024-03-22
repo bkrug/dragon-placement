@@ -4,9 +4,11 @@ import Line from './components/line/line';
 import Login from './components/login/login';
 import DragonList from './components/dragon-list/dragon-list';
 import DragonApi from './services/dragonApi';
+import { useState } from 'react';
 
 function App() {
   const dragonApi = new DragonApi();
+  let [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className="App">
@@ -21,8 +23,10 @@ function App() {
         </a>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <Login dragonApi={dragonApi} />
-      <DragonList dragonApi={dragonApi} />
+      <Login dragonApi={dragonApi} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      {
+        isLoggedIn ? <DragonList dragonApi={dragonApi} /> : <div/>
+      }
       <Line/>
     </div>
   );

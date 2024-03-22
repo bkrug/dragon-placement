@@ -1,13 +1,14 @@
-import { useState, ChangeEvent, MouseEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent, FormEvent, Dispatch, SetStateAction } from 'react';
 import loginData from '../../models/loginData';
 import DragonApi from '../../services/dragonApi';
 
 interface LoginFormProps {
     dragonApi: DragonApi;
+    isLoggedIn: boolean;
+    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Login({ dragonApi }: LoginFormProps) {
-    let [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function Login({ dragonApi, isLoggedIn, setIsLoggedIn }: LoginFormProps) {
     let [formData, setFormData] = useState(new loginData())
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
