@@ -34,7 +34,7 @@ function DragonList({ dragonApi }: DragonListProps) {
             renderCell: (params: any) => {
                 const onClick = (e: MouseEvent<HTMLButtonElement>) => {
                     e.stopPropagation();
-                    const selectedDragon = dragons.items.find((d: dragon) => d.id == params.id) || new dragon();
+                    const selectedDragon = dragons.items.find((d: dragon) => d.id === params.id) || new dragon();
                     setDragonToEdit(selectedDragon);
                     return params.id;
                 };
