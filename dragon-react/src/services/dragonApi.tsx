@@ -24,7 +24,7 @@ export default class DragonApi {
         return response.data;
     }
 
-    async login(formData: loginData): Promise<any> {
+    async login(formData: loginData): Promise<boolean> {
         const response = await axios.post('http://localhost:5044/login?useCookies=true', formData)
             .catch((error) => {
                 if (error.message != null) {
@@ -34,8 +34,23 @@ export default class DragonApi {
                 }
             });
         if (response != null)
-            return response.data;
+            return true;
         else
-            return null;
-    }    
+            return false;
+    }
+
+    async logout(): Promise<boolean> {
+        const response = await axios.post('http://localhost:5044/logout')
+            .catch((error) => {
+                if (error.message != null) {
+                    console.log('The following error message was recieved: ' + error.message);
+                } else {
+                    console.error('This error occurred:', error);
+                }
+            });
+        if (response != null)
+            return true;
+        else
+            return false;        
+    }
 }

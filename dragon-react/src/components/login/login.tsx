@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent, FormEvent } from 'react';
 import loginData from '../../models/loginData';
 import DragonApi from '../../services/dragonApi';
 
@@ -17,14 +17,19 @@ export default function Login({ dragonApi }: LoginFormProps) {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        let response = await dragonApi.login(formData);
-        console.log(response);
-        //setIsLoggedIn(true);
+        let success = await dragonApi.login(formData);
+        setIsLoggedIn(success);
+    };
+
+    const handleLogout = async (event: MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        await dragonApi.logout();
+        setIsLoggedIn(false);
     };
 
     if (isLoggedIn) {
         return (
-            <a href="#">Log Out</a>
+            <a href="#" onClick={handleLogout}>Log Out</a>
         );
     }
     else {
